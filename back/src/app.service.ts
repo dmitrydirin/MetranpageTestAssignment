@@ -34,9 +34,9 @@ export class AppService {
     };
   }
 
-  async buildProject(id: number) {
+  async buildProject(id: number, templateId: number) {
     // TODO actually, there should be queue scheduling, at actual project RabbitMQ is used
-    const response = await this.makeRequest(`${this.workerUrl}/build`, { id });
+    const response = await this.makeRequest(`${this.workerUrl}/build`, { id, templateId });
 
     if (response) {
       const processedData = response.buildedProject!;
@@ -48,7 +48,7 @@ export class AppService {
     }
   }
 
-  async makeRequest(url: string, body?: object): Promise<WorkerResponse | false> {
+  makeRequest(url: string, body?: object): Promise<WorkerResponse | false> {
     if (!url) {
       throw new Error("No url");
     }

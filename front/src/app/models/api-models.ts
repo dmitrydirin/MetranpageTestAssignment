@@ -1,15 +1,11 @@
-export type Project = {
-  id: number;
-};
-
-export type Template = {
-  id: number;
-  arg1: string;
-  arg2: string;
-};
+import { Project, Template } from "./project-models";
 
 export type ProjectResponse = {
   projects: Project[];
+};
+
+export type TemplateResponse = {
+	templates: Template[];
 };
 
 export type BuildResponse = {

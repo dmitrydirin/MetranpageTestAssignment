@@ -1,0 +1,35 @@
+<div class="wrapper" *ngIf="projectState">
+	<div>
+		Проект - id: {{projectState.project.id}}
+	</div>
+	<div [class.processing]="processing">
+		<mat-form-field appearance="outline" *ngIf="templates$ | async as templates">
+			<mat-label>Шаблон</mat-label>
+			<mat-select [(ngModel)]="templateId">
+				<mat-option *ngFor="let template of templates" [value]="template.id">{{template.arg1}}, {{template.arg2}}</mat-option>
+			</mat-select>
+		</mat-form-field>
+	</div>
+	
+	
+	<div class="button-wrapper">
+		<button mat-raised-button color="primary" (click)="buildProject()" [disabled]="!templateId || processing" [class.processing]="processing">
+			Собрать
+		</button>
+		<mat-spinner *ngIf="processing" diameter="32"></mat-spinner>
+	</div>
+	
+	<!-- TODO add template select -->
+
+	<div *ngIf="projectState.buildedProject">
+		Собранный проект: {{projectState.buildedProject}}
+	</div>
+	
+	<div *ngIf="projectState.error">
+		Ошибка: {{projectState.error}}
+	</div>
+</div>
+
+<ng-template #loading>
+	<mat-spinner diameter="32"></mat-spinner>
+</ng-template>
